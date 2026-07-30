@@ -38,21 +38,19 @@ class PitchHandler {
   }
 
   //Handle pitch based in the instrument chosen
-  Future<PitchResult> handlePitch(double pitch) {
-    if (_isPitchInRange(pitch)) {
-      final noteLiteral = _noteFromPitch(pitch);
-      final expectedFrequency = _frequencyFromNoteNumber(_midiFromPitch(pitch));
-      final diff = _diffFromTargetedNote(pitch);
-      final tuningStatus = _getTuningStatus(diff);
-      final diffCents =
-          _diffInCents(expectedFrequency, expectedFrequency - diff);
+  PitchResult handlePitch(double pitch) {
+    final noteLiteral = _noteFromPitch(pitch);
+    final expectedFrequency = _frequencyFromNoteNumber(_midiFromPitch(pitch));
+    final diff = _diffFromTargetedNote(pitch);
+    final tuningStatus = _getTuningStatus(diff);
+    final diffCents = _diffInCents(expectedFrequency, expectedFrequency - diff);
 
-      return Future.value(PitchResult(
-          noteLiteral, tuningStatus, expectedFrequency, diff, diffCents));
-    }
-
-    return Future.value(
-        PitchResult("", TuningStatus.undefined, 0.00, 0.00, 0.00));
+    return PitchResult(
+        noteLiteral,
+        _isPitchInRange(pitch) ? tuningStatus : TuningStatus.undefined,
+        expectedFrequency,
+        diff,
+        diffCents);
   }
 
   /// Checks if pitch is between the range of the instrument
