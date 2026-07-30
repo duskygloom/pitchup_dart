@@ -52,3 +52,8 @@ Please, drop me an email if you have any suggestions, problems or feedback. Feel
 This page informs you of our policies regarding the collection, use and disclosure of Personal Information when you use our Service.
 
 The library don't store or share any kind of information. No data is saved or shared through any means. 
+
+### Changes in the fork
+
+- Keep pitch and probability values even when not pitched.
+- `handlePitch` returns `PitchResult` instead of `Future<PitchResult>`.
